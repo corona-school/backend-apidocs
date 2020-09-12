@@ -3278,6 +3278,129 @@ define({ "api": [
     }
   },
   {
+    "type": "GET",
+    "url": "/courses",
+    "title": "GetSchools",
+    "version": "1.1.0",
+    "description": "<p>Request a list of all available schools we're publicly cooperting with as part of the cooperations with several states in Germany.</p> <p>This endpoint can be called without authentication.</p>",
+    "name": "GetSchools",
+    "group": "Registration",
+    "parameter": {
+      "fields": {
+        "Query Parameter": [
+          {
+            "group": "Query Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "state",
+            "description": "<p>The state of Germany for which the cooperation schools should be returned.</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET \"https://api.corona-school.de/api/register/:state/schools\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/registrationController/index.ts",
+    "groupTitle": "Registration",
+    "header": {
+      "fields": {
+        "Optional Authentication": [
+          {
+            "group": "Optional Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user <em>(optional)</em></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "SchoolInfo Object": [
+          {
+            "group": "SchoolInfo Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>School's name</p>"
+          },
+          {
+            "group": "SchoolInfo Object",
+            "type": "string",
+            "optional": false,
+            "field": "emailDomain",
+            "description": "<p>School's email address domain</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "POST",
     "url": "/register/tutee",
     "title": "RegisterTutee",
@@ -3619,6 +3742,188 @@ define({ "api": [
             "optional": false,
             "field": "maxGrade",
             "description": "<p>Maximum grade</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "409",
+            "description": "<p>Resource conflicts with existing resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Conflict",
+          "content": "HTTP/1.1 409 Conflict\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
+    "url": "/register/tutee/state",
+    "title": "StateRegisterTutee",
+    "version": "1.1.0",
+    "description": "<p>Register a user as a tutee for a specific state cooperation</p>",
+    "name": "StateRegisterTutee",
+    "group": "Registration",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Content-Type: application/json\" https://api.corona-school.de/api/register/tutee/state -d \"<REQUEST>\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/registrationController/index.ts",
+    "groupTitle": "Registration",
+    "header": {
+      "fields": {
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "StateTutee Object": [
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>First name</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Last name</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>E-Mail</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "int",
+            "optional": false,
+            "field": "grade",
+            "description": "<p>Grade of the pupil</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "state",
+            "description": "<p>State, one of <code>&quot;bw&quot;, &quot;by&quot;, &quot;be&quot;, &quot;bb&quot;, &quot;hb&quot;, &quot;hh&quot;, &quot;he&quot;, &quot;mv&quot;, &quot;ni&quot;, &quot;nw&quot;, &quot;rp&quot;, &quot;sl&quot;, &quot;sn&quot;, &quot;st&quot;, &quot;sh&quot;, &quot;th&quot;, &quot;other&quot;</code></p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "bool",
+            "optional": false,
+            "field": "isTutee",
+            "description": "<p>True, if eligible for one-on-one matching</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "Subject[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p><em>required if</em> <code>isTutor = true</code>: Subjects</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "bool",
+            "optional": false,
+            "field": "newsletter",
+            "description": "<p>Opt-in for newsletter</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>Additional information</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string",
+            "optional": false,
+            "field": "teacherEmail",
+            "description": "<p>The email address of the teacher as part of cooperation with one of Germany's states</p>"
+          },
+          {
+            "group": "StateTutee Object",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "redirectTo",
+            "description": "<p>the page the user sees after registration</p>"
+          }
+        ],
+        "Subject Object": [
+          {
+            "group": "Subject Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the subject</p>"
           }
         ]
       }
