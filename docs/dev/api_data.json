@@ -2028,6 +2028,129 @@
   },
   {
     "type": "GET",
+    "url": "/course/:id/subcourse/:subid/meeting/join",
+    "title": "JoinCourseMeetingHandler",
+    "version": "1.1.0",
+    "description": "<p>Get the BBB-Meeting for a given subcourse</p> <p>This endpoint provides the BBB-Meeting of a subcourse.</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "subid",
+            "description": "<p>ID of the subcourse</p>"
+          }
+        ]
+      }
+    },
+    "name": "GetCourseMeeting",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/subcourse/<ID>/meeting/join",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "BBBMeeting Return Object": [
+          {
+            "group": "BBBMeeting Return Object",
+            "type": "string",
+            "optional": false,
+            "field": "url",
+            "description": "<p>Meeting url depending on whether it is an attendee or moderator</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
     "url": "/courses",
     "title": "GetCourses",
     "version": "1.1.0",
@@ -2681,192 +2804,6 @@
         {
           "title": "Conflict",
           "content": "HTTP/1.1 409 Conflict\n(empty body)",
-          "type": "empty"
-        },
-        {
-          "title": "Internal Server Error",
-          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
-          "type": "empty"
-        }
-      ]
-    }
-  },
-  {
-    "type": "POST",
-    "url": "/course/:id/meeting/join",
-    "title": "JoinCourseMeeting",
-    "version": "1.1.0",
-    "description": "<p>Joins the BBB-Meeting for a given course</p> <p>This endpoint allows joining the BBB-Meeting of a course. If the user is the instructor of the course the Meeting gets created with this call. The other participants can only join after the instructor created the meeting with this endpoint</p>",
-    "name": "JoinCourseMeeting",
-    "group": "Courses",
-    "parameter": {
-      "fields": {
-        "JSON Body": [
-          {
-            "group": "JSON Body",
-            "type": "int",
-            "optional": false,
-            "field": "subcourseId",
-            "description": "<p>ID of the subcourse of the course that should be joined</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Curl",
-        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/meeting/join",
-        "type": "curl"
-      }
-    ],
-    "filename": "web/controllers/courseController/index.ts",
-    "groupTitle": "",
-    "header": {
-      "fields": {
-        "": [
-          {
-            "group": "Authentication",
-            "type": "string",
-            "optional": false,
-            "field": "Token",
-            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Token",
-          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Course Object": [
-          {
-            "group": "Course Object",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Unique identifier for this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "Instructor[]",
-            "optional": false,
-            "field": "instructors",
-            "description": "<p><em>(optional)</em> Information about the instructors of this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string",
-            "optional": false,
-            "field": "name",
-            "description": "<p><em>(optional)</em> Name of this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string",
-            "optional": false,
-            "field": "outline",
-            "description": "<p><em>(optional)</em> Outline of this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string",
-            "optional": false,
-            "field": "description",
-            "description": "<p><em>(optional)</em> Description of this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string|null",
-            "optional": false,
-            "field": "image",
-            "description": "<p><em>(optional)</em> URL of an associated image</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string",
-            "optional": false,
-            "field": "category",
-            "description": "<p><em>(optional)</em> Category of this course (one of <code>&quot;revision&quot;</code>,<code>&quot;club&quot;</code>,<code>&quot;coaching&quot;</code>)</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "CourseTag[]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p><em>(optional)</em> Tags for this course</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "Subcourse[]",
-            "optional": false,
-            "field": "subcourses",
-            "description": "<p><em>(optional)</em> Array of Subcourses</p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "string",
-            "optional": false,
-            "field": "state",
-            "description": "<p><em>(optional, requires authentication)</em> One of <code>&quot;created&quot;, &quot;submitted&quot;, &quot;allowed&quot;, &quot;denied&quot;, &quot;cancelled&quot;</code></p>"
-          },
-          {
-            "group": "Course Object",
-            "type": "number",
-            "optional": false,
-            "field": "publicRanking",
-            "description": "<p>A number indicating a ranking/order of how courses should be displayed in UI.</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "HTTP Status Codes": [
-          {
-            "group": "HTTP Status Codes",
-            "optional": false,
-            "field": "200",
-            "description": "<p>The request was successful and contains a response</p>"
-          },
-          {
-            "group": "HTTP Status Codes",
-            "optional": false,
-            "field": "400",
-            "description": "<p>The request was malformed and thus rejected</p>"
-          },
-          {
-            "group": "HTTP Status Codes",
-            "optional": false,
-            "field": "401",
-            "description": "<p>The user is authenticated, but may not access this resource</p>"
-          },
-          {
-            "group": "HTTP Status Codes",
-            "optional": false,
-            "field": "500",
-            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "OK",
-          "content": "HTTP/1.1 200 OK\n(response)",
-          "type": "json"
-        },
-        {
-          "title": "Bad Request",
-          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
-          "type": "empty"
-        },
-        {
-          "title": "Forbidden",
-          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
           "type": "empty"
         },
         {
