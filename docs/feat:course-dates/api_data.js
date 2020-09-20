@@ -3957,6 +3957,78 @@ define({ "api": [
     }
   },
   {
+    "type": "POST",
+    "url": "/screening/lectures/create",
+    "title": "createLecture",
+    "version": "1.0.1",
+    "description": "<p>Creates a new lecture</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "createLecture",
+    "group": "Screener",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" [host]/api/screening/lectures/create",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "JSON Body": [
+          {
+            "group": "JSON Body",
+            "type": "Object",
+            "optional": false,
+            "field": "subcourse",
+            "description": "<p>the new lecture will belong to</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "Object",
+            "optional": false,
+            "field": "instructor",
+            "description": "<p>of the new lecture</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "number",
+            "optional": false,
+            "field": "starttime",
+            "description": "<p>of the lecture</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "number",
+            "optional": false,
+            "field": "duration",
+            "description": "<p>in minutes</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Screener",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "GET",
     "url": "/screening/courses",
     "title": "getCourses",
@@ -4367,6 +4439,57 @@ define({ "api": [
     },
     "filename": "web/controllers/screeningController/index.ts",
     "groupTitle": "Screener",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "DELETE",
+    "url": "/screening/lectures/:id/delete",
+    "title": "DeleteLecture",
+    "version": "1.1.0",
+    "description": "<p>Delete a lecture.</p> <p>This endpoint allows deleting a lecture.</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the lecture</p>"
+          }
+        ]
+      }
+    },
+    "name": "deleteLecture",
+    "group": "Screening",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X DELETE -H \"Token: <AUTHTOKEN>\" [host]/api/screening/lectures/<ID>/delete",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Screening",
     "header": {
       "fields": {
         "": [
