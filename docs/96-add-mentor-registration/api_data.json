@@ -3653,13 +3653,6 @@
           },
           {
             "group": "Mentor Object",
-            "type": "string",
-            "optional": false,
-            "field": "imageUrl",
-            "description": "<p>Url to mentor's image</p>"
-          },
-          {
-            "group": "Mentor Object",
             "type": "string|undefined",
             "optional": false,
             "field": "redirectTo",
