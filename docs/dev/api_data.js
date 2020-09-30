@@ -3550,6 +3550,181 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/register/mentor",
+    "title": "RegisterMentor",
+    "version": "1.1.0",
+    "description": "<p>Register a user as a mentor.</p>",
+    "name": "RegisterMentor",
+    "group": "Registration",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Content-Type: application/json\" https://api.corona-school.de/api/register/mentor -d \"<REQUEST>\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/registrationController/index.ts",
+    "groupTitle": "Registration",
+    "header": {
+      "fields": {
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Mentor Object": [
+          {
+            "group": "Mentor Object",
+            "type": "string",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>First name</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Last name</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>E-Mail</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "division",
+            "description": "<p>Division, array of <code>&quot;facebook&quot;, &quot;email&quot;, &quot;events&quot;, &quot;video&quot;, &quot;supervision&quot;</code></p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "expertise",
+            "description": "<p>Expertise, array of <code>&quot;language_difficulties&quot;, &quot;specialized_subject_experience&quot;, &quot;didactic_expert&quot;, &quot;technical_support&quot;, &quot;self_organization&quot;</code></p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "Subject[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p>Subjects, <em>required if</em> <code>division = &quot;supervision&quot;</code> or <code>expertise = &quot;specialized_subject_experience&quot;</code></p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "bool",
+            "optional": false,
+            "field": "teachingExperience",
+            "description": "<p>User reports existing teaching experience</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Additional message</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Additional description</p>"
+          },
+          {
+            "group": "Mentor Object",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "redirectTo",
+            "description": "<p>the page the user sees after registration</p>"
+          }
+        ],
+        "Subject Object": [
+          {
+            "group": "Subject Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the subject</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "409",
+            "description": "<p>Resource conflicts with existing resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Conflict",
+          "content": "HTTP/1.1 409 Conflict\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
     "url": "/register/tutee",
     "title": "RegisterTutee",
     "version": "1.1.0",
