@@ -4589,6 +4589,20 @@ define({ "api": [
             "optional": false,
             "field": "instructors.id",
             "description": "<p>the instructor ids of this course</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "Object[]|undefined",
+            "optional": false,
+            "field": "newLectures",
+            "description": "<p>the new lectures of this course after the update</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "Object[]|undefined",
+            "optional": false,
+            "field": "removeLectures",
+            "description": "<p>the lectures that should be removed from the course</p>"
           }
         ]
       }
