@@ -6085,7 +6085,7 @@
         },
         {
           "title": "Mentor",
-          "content": "{\n    \"firstname\": \"Frank N.\",\n    \"lastname\": \"Stein\",\n    \"division\": \"\",\n    \"expertise\": \"\",\n    \"subjects\": \"\",\n    \"teachingExperience\": \"true\",\n    \"description\": \"\"\n}",
+          "content": "{\n    \"firstname\": \"Frank N.\",\n    \"lastname\": \"Stein\",\n    \"division\": [\"video\", \"supervision\"],\n    \"expertise\": [\"technical support\"],\n    \"subjects\": [\n        {\"name\": \"Englisch\", \"minGrade\": 1, \"maxGrade\": 13}\n    ],\n    \"teachingExperience\": false,\n    \"description\": \"I like trains\"\n}",
           "type": "json"
         }
       ]
