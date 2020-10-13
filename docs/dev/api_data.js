@@ -3666,6 +3666,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -3848,6 +3862,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -4054,17 +4082,17 @@ define({ "api": [
           },
           {
             "group": "Subject Object",
-            "type": "int",
+            "type": "number",
             "optional": false,
             "field": "minGrade",
-            "description": "<p>Minimum grade</p>"
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
           },
           {
             "group": "Subject Object",
-            "type": "int",
+            "type": "number",
             "optional": false,
             "field": "maxGrade",
-            "description": "<p>Maximum grade</p>"
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -4247,6 +4275,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -5363,7 +5405,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
@@ -5660,7 +5702,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
@@ -5967,24 +6009,8 @@ define({ "api": [
             "field": "id",
             "description": "<p>User Id</p>"
           }
-        ],
-        "User Subjects": [
-          {
-            "group": "User Subjects",
-            "type": "Subject[]",
-            "optional": false,
-            "field": "root",
-            "description": "<p>Array of subjects</p>"
-          }
         ]
-      },
-      "examples": [
-        {
-          "title": "Example",
-          "content": "[\n    {\n        \"name\": \"Chemie\",\n        \"minGrade\": 1,\n        \"maxGrade\": 4\n    },\n    {\n        \"name\": \"Physik\",\n        \"minGrade\": 10,\n        \"maxGrade\": 13\n    }\n]",
-          "type": "json"
-        }
-      ]
+      }
     },
     "filename": "web/controllers/userController/index.ts",
     "groupTitle": "",
@@ -6016,21 +6042,21 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
             "type": "number",
             "optional": false,
             "field": "minGrade",
-            "description": ""
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
           },
           {
             "group": "Subject Object",
             "type": "number",
             "optional": false,
             "field": "maxGrade",
-            "description": ""
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -6166,6 +6192,41 @@ define({ "api": [
           },
           {
             "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "division",
+            "description": "<p><i>Only for mentors:</i> Division of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "expertise",
+            "description": "<p><i>Only for mentors:</i> Expertise of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p><i>Only for mentors:</i> Subjects of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "boolean",
+            "optional": false,
+            "field": "teachingExperience",
+            "description": "<p><i>Only for mentors:</i> Teaching experience of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><i>Only for mentors:</i> Description of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
             "type": "number",
             "optional": false,
             "field": "lastUpdatedSettingsViaBlocker",
@@ -6182,6 +6243,11 @@ define({ "api": [
         {
           "title": "Student",
           "content": "{\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"matchesRequested\": 0\n}",
+          "type": "json"
+        },
+        {
+          "title": "Mentor",
+          "content": "{\n    \"firstname\": \"Frank N.\",\n    \"lastname\": \"Stein\",\n    \"division\": [\"video\", \"supervision\"],\n    \"expertise\": [\"technical support\"],\n    \"subjects\": [\n        {\"name\": \"Englisch\", \"minGrade\": 1, \"maxGrade\": 13}\n    ],\n    \"teachingExperience\": false,\n    \"description\": \"I like trains\"\n}",
           "type": "json"
         }
       ]
@@ -6499,7 +6565,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
