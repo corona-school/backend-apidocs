@@ -5398,6 +5398,87 @@
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
           }
+        ],
+        "Subject Object": [
+          {
+            "group": "Subject Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
+          }
+        ],
+        "Match Object": [
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "uuid",
+            "description": "<p>Unique identifier for the Match</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>First name of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Last name of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>E-Mail address of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "grade",
+            "description": "<p><i>only available for students:</i> Grade of the pupil</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p>Subjects of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "jitsilink",
+            "description": "<p>Link to the Jitsi session</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "number",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Unix timestamp of when these persons were matched</p>"
+          }
         ]
       },
       "examples": [
@@ -5613,6 +5694,87 @@
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
+          }
+        ],
+        "Subject Object": [
+          {
+            "group": "Subject Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
+          }
+        ],
+        "Match Object": [
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "uuid",
+            "description": "<p>Unique identifier for the Match</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>First name of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Last name of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>E-Mail address of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "grade",
+            "description": "<p><i>only available for students:</i> Grade of the pupil</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p>Subjects of the matched partner</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "string",
+            "optional": false,
+            "field": "jitsilink",
+            "description": "<p>Link to the Jitsi session</p>"
+          },
+          {
+            "group": "Match Object",
+            "type": "number",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Unix timestamp of when these persons were matched</p>"
           }
         ]
       },
