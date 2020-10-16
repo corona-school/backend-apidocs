@@ -3860,6 +3860,13 @@ define({ "api": [
             "optional": true,
             "field": "projectFields",
             "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectMentee is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "number",
+            "optional": true,
+            "field": "projectMemberCount",
+            "description": "<p>(for project coaching required) A number of persons that are making the project together. Values between 1 and 3 are allowed.</p>"
           }
         ],
         "Subject Object": [
