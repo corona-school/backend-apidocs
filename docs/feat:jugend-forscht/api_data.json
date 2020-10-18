@@ -3844,7 +3844,7 @@
             "group": "Tutee Object",
             "type": "bool",
             "optional": false,
-            "field": "isProjectMentee",
+            "field": "isProjectCoachee",
             "description": "<p>True, if participating in project coaching</p>"
           },
           {
@@ -3859,7 +3859,7 @@
             "type": "string",
             "optional": true,
             "field": "projectFields",
-            "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectMentee is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+            "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectCoachee is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
           },
           {
             "group": "Tutee Object",
@@ -4087,14 +4087,21 @@
           },
           {
             "group": "Tutor Object",
-            "type": "string[]",
+            "type": "string",
             "optional": true,
             "field": "wasJufoParticipant",
             "description": "<p>(for project coaching required) One of <code> &quot;yes&quot;, &quot;no&quot;, &quot;idk&quot; </code></p>"
           },
           {
             "group": "Tutor Object",
-            "type": "string",
+            "type": "boolean",
+            "optional": true,
+            "field": "hasJufoCertificate",
+            "description": "<p>(for project coaching required) One of <code> &quot;yes&quot;, &quot;no&quot;, &quot;idk&quot; </code></p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string[]",
             "optional": true,
             "field": "projectFields",
             "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectCoach is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
@@ -4936,6 +4943,128 @@
   {
     "type": "PUT",
     "url": "/student/:email",
+    "title": "updateStudentWithProjectCoachingScreeningResult",
+    "version": "1.0.1",
+    "description": "<p>Update a student by her/his email address</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "updateStudentWithProjectCoachingScreeningResult",
+    "group": "Student",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X PUT -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/student/<EMAIL> -d \"<REQUEST>\"",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Student Email Address</p>"
+          }
+        ],
+        "JSON Body": [
+          {
+            "group": "JSON Body",
+            "type": "boolean",
+            "optional": false,
+            "field": "verified",
+            "description": "<p><code>true</code> if the student should be accepted as a project tutor, <code>false</code> otherwise</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "commentScreener",
+            "description": "<p>A comment by the screener</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "knowscsfrom",
+            "description": "<p>String from where the person knows Corona School's 1-on-1 project coaching</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "screenerEmail",
+            "description": "<p>The Screener's email address.</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "feedback",
+            "description": "<p>A string with feedback that should be stored.</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "ProjectFieldInfo[]",
+            "optional": false,
+            "field": "projectFields",
+            "description": "<p>An array of objects providing information on the person's selected project fields.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Student",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "ProjectFieldInfo Object": [
+          {
+            "group": "ProjectFieldInfo Object",
+            "type": "string",
+            "optional": false,
+            "field": "projectField",
+            "description": "<p>Identifier for the project field, one of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "ProjectFieldInfo Object",
+            "type": "number",
+            "optional": true,
+            "field": "max",
+            "description": "<p>Maximum grade for this project field. If this is set, <code>min</code> is required as well.</p>"
+          },
+          {
+            "group": "ProjectFieldInfo Object",
+            "type": "number",
+            "optional": true,
+            "field": "min",
+            "description": "<p>Minimum grade for this project field. If this is set, <code>max</code> is required as well.</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "PUT",
+    "url": "/student/:email",
     "title": "updateStudentWithScreeningResult",
     "version": "1.0.1",
     "description": "<p>Update a student by her/his email address</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
@@ -5498,12 +5627,12 @@
       "examples": [
         {
           "title": "Pupil",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"isProjectCoachee\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -5795,12 +5924,12 @@
       "examples": [
         {
           "title": "Pupil",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"isProjectCoachee\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         }
       ]
