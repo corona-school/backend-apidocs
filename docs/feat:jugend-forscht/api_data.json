@@ -4694,113 +4694,6 @@
     }
   },
   {
-    "type": "POST",
-    "url": "/screening/instructor/:instructorID/update",
-    "title": "updateInstructor",
-    "version": "1.0.1",
-    "description": "<p>Updates an instructor</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
-    "name": "updateCourse",
-    "group": "Screener",
-    "examples": [
-      {
-        "title": "Curl",
-        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" [host]/api/screening/instructor/id/update",
-        "type": "curl"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "JSON Body": [
-          {
-            "group": "JSON Body",
-            "type": "boolean",
-            "optional": false,
-            "field": "isStudent",
-            "description": "<p>the instructors can also be students at the same time</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "boolean",
-            "optional": false,
-            "field": "verified",
-            "description": "<p>wether the instructor gets verified</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>sets the instructors phone number</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "Date|undefined",
-            "optional": false,
-            "field": "birthday",
-            "description": "<p>sets the instructors birthday</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "commentScreener",
-            "description": "<p>adds a comment to the screening</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "knowscsfrom",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "screenerEmail",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "subjects",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "feedback",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "web/controllers/screeningController/index.ts",
-    "groupTitle": "Screener",
-    "header": {
-      "fields": {
-        "": [
-          {
-            "group": "Authentication",
-            "type": "string",
-            "optional": false,
-            "field": "Token",
-            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Token",
-          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "PUT",
     "url": "/screener/:email",
     "title": "updateScreenerByMail",
@@ -4879,6 +4772,15 @@
         ]
       }
     },
+    "success": {
+      "examples": [
+        {
+          "title": "Response Example",
+          "content": "{\n   \"firstName\": \"Leon\",\n   \"lastName\": \"Jackson\",\n   \"email\": \"leon-jackson@t-online.de\",\n   \"feedback\": null,\n   \"phone\": null,\n   \"newsletter\": false,\n   \"msg\": null,\n   \"university\": null,\n   \"state\": \"other\",\n   \"isUniversityStudent\": true,\n   \"isTutor\": true,\n   \"isInstructor\": true,\n   \"isProjectCoach\": false,\n   \"subjects\": [\n       {\n           \"name\": \"Englisch\",\n           \"grade\": {\n               \"min\": 1,\n               \"max\": 8\n           }\n       },\n       {\n           \"name\": \"Spanisch\",\n           \"grade\": {\n               \"min\": 6,\n               \"max\": 10\n           }\n       }\n   ],\n   \"projectFields\": [],\n   \"screenings\": {\n       \"tutor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"instructor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"projectCoach\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Instagram\"\n       }\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
     "filename": "web/controllers/screeningController/index.ts",
     "groupTitle": "Student",
     "header": {
@@ -4943,10 +4845,10 @@
   {
     "type": "PUT",
     "url": "/student/:email",
-    "title": "updateStudentWithProjectCoachingScreeningResult",
+    "title": "updateStudentByMailHandler",
     "version": "1.0.1",
-    "description": "<p>Update a student by her/his email address</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
-    "name": "updateStudentWithProjectCoachingScreeningResult",
+    "description": "<p>Update a student by her/his email address.</p> <p>Can be used to update most of the important settings (including the screenings) of a user.</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "updateStudentByMailHandler",
     "group": "Student",
     "examples": [
       {
@@ -4966,206 +4868,145 @@
             "description": "<p>Student Email Address</p>"
           }
         ],
-        "JSON Body": [
+        "Body Parameter": [
           {
-            "group": "JSON Body",
+            "group": "Body Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "screenerEmail",
+            "description": "<p>Screener's Email Address the change should be associated with</p>"
+          }
+        ],
+        "": [
+          {
+            "group": "StudentEditableInfo",
             "type": "boolean",
             "optional": false,
-            "field": "verified",
-            "description": "<p><code>true</code> if the student should be accepted as a project tutor, <code>false</code> otherwise</p>"
+            "field": "isTutor",
+            "description": "<p>whether is 1-on-1 learning tutor</p>"
           },
           {
-            "group": "JSON Body",
-            "type": "string|undefined",
+            "group": "StudentEditableInfo",
+            "type": "boolean",
             "optional": false,
-            "field": "commentScreener",
-            "description": "<p>A comment by the screener</p>"
+            "field": "isInstructor",
+            "description": "<p>whether wants to give courses or not</p>"
           },
           {
-            "group": "JSON Body",
-            "type": "string|undefined",
+            "group": "StudentEditableInfo",
+            "type": "boolean",
             "optional": false,
-            "field": "knowscsfrom",
-            "description": "<p>String from where the person knows Corona School's 1-on-1 project coaching</p>"
+            "field": "isProjectCourse",
+            "description": "<p>whether wants to give project coaching</p>"
           },
           {
-            "group": "JSON Body",
-            "type": "string|undefined",
+            "group": "StudentEditableInfo",
+            "type": "Object",
             "optional": false,
-            "field": "screenerEmail",
-            "description": "<p>The Screener's email address.</p>"
+            "field": "screenings",
+            "description": "<p>Information on the available screenings. Only those are not null/undefined which exist/should exist</p>"
           },
           {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "feedback",
-            "description": "<p>A string with feedback that should be stored.</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "ProjectFieldInfo[]",
+            "group": "StudentEditableInfo",
+            "type": "Object[]",
             "optional": false,
             "field": "projectFields",
-            "description": "<p>An array of objects providing information on the person's selected project fields.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "web/controllers/screeningController/index.ts",
-    "groupTitle": "Student",
-    "header": {
-      "fields": {
-        "": [
-          {
-            "group": "Authentication",
-            "type": "string",
-            "optional": false,
-            "field": "Token",
-            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Token",
-          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "ProjectFieldInfo Object": [
-          {
-            "group": "ProjectFieldInfo Object",
-            "type": "string",
-            "optional": false,
-            "field": "projectField",
-            "description": "<p>Identifier for the project field, one of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+            "description": "<p>All project fields for 1-on-1 project coaching</p>"
           },
           {
-            "group": "ProjectFieldInfo Object",
-            "type": "number",
+            "group": "StudentEditableInfo",
+            "type": "Object[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p>All subjects for 1-on-1 tutoring</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
             "optional": true,
-            "field": "max",
-            "description": "<p>Maximum grade for this project field. If this is set, <code>min</code> is required as well.</p>"
-          },
-          {
-            "group": "ProjectFieldInfo Object",
-            "type": "number",
-            "optional": true,
-            "field": "min",
-            "description": "<p>Minimum grade for this project field. If this is set, <code>max</code> is required as well.</p>"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "PUT",
-    "url": "/student/:email",
-    "title": "updateStudentWithScreeningResult",
-    "version": "1.0.1",
-    "description": "<p>Update a student by her/his email address</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
-    "name": "updateStudentWithScreeningResult",
-    "group": "Student",
-    "examples": [
-      {
-        "title": "Curl",
-        "content": "curl -k -i -X PUT -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/student/<EMAIL> -d \"<REQUEST>\"",
-        "type": "curl"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "URL Parameter": [
-          {
-            "group": "URL Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "email",
-            "description": "<p>Student Email Address</p>"
-          }
-        ]
-      }
-    },
-    "filename": "web/controllers/screeningController/index.ts",
-    "groupTitle": "Student",
-    "header": {
-      "fields": {
-        "": [
-          {
-            "group": "Authentication",
-            "type": "string",
-            "optional": false,
-            "field": "Token",
-            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Token",
-          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "verified",
-            "description": "<p>Verification</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>Phone number</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "birthday",
-            "description": "<p>Birthday</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "commentScreener",
-            "description": "<p>a comment made by the screener</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "knowscsfrom",
-            "description": "<p>how did the student get to know corona school?</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "screenerEmail",
-            "description": "<p>the email address of the screener</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
             "field": "feedback",
-            "description": "<p>feedback on corona school given by the screened students</p>"
+            "description": "<p>The student's feedback</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "phone",
+            "description": "<p>The student's phone number</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": false,
+            "field": "newsletter",
+            "description": "<p>Student wanna subscribe newsletter or not</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "msg",
+            "description": "<p>The student's message.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "university",
+            "description": "<p>The student's university.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "state",
+            "description": "<p>The student's state.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "isUniversityStudent",
+            "description": "<p>The student is official registered student (for jufo) or not.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "Object",
+            "optional": true,
+            "field": "official",
+            "description": "<p>Information on the student if official (internship/DLL);</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Example Body",
+          "content": "\n{\n   \"screenerEmail\": \"maxi-screening@example.org\",\n   \"feedback\": null,\n   \"phone\": null,\n   \"newsletter\": false,\n   \"msg\": null,\n   \"university\": null,\n   \"state\": \"nw\",\n   \"isUniversityStudent\": true,\n   \"isTutor\": true,\n   \"isInstructor\": true,\n   \"isProjectCoach\": false,\n   \"subjects\": [\n       {\n           \"name\": \"Englisch\",\n           \"grade\": {\n               \"min\": 1,\n               \"max\": 8\n           }\n       },\n       {\n           \"name\": \"Spanisch\",\n           \"grade\": {\n               \"min\": 6,\n               \"max\": 10\n           }\n       }\n   ],\n   \"projectFields\": [\n       {\n           \"name\": \"Arbeitswelt\",\n           \"min\": 1,\n           \"max\": 9\n       }\n   ],\n   \"screenings\": {\n       \"tutor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"instructor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       }\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Student",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
     }
   },
   {
