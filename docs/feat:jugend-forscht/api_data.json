@@ -3787,9 +3787,9 @@
           {
             "group": "Tutee Object",
             "type": "int",
-            "optional": false,
+            "optional": true,
             "field": "grade",
-            "description": "<p>Grade of the pupil</p>"
+            "description": "<p>Grade of the pupil (required if not only registering for project coaching)</p>"
           },
           {
             "group": "Tutee Object",
@@ -3803,7 +3803,7 @@
             "type": "string",
             "optional": false,
             "field": "school",
-            "description": "<p>School type, one of <code>&quot;grundschule&quot;, &quot;gesamtschule&quot;, &quot;hauptschule&quot;, &quot;realschule&quot;, &quot;gymnasium&quot;, &quot;förderschule&quot;, &quot;other&quot;</code></p>"
+            "description": "<p>School type, one of <code>&quot;grundschule&quot;, &quot;gesamtschule&quot;, &quot;hauptschule&quot;, &quot;realschule&quot;, &quot;gymnasium&quot;, &quot;förderschule&quot;, &quot;berufsschule&quot;, &quot;other&quot;</code></p>"
           },
           {
             "group": "Tutee Object",
