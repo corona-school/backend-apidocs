@@ -4105,6 +4105,13 @@ define({ "api": [
             "optional": true,
             "field": "projectFields",
             "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectCoach is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string",
+            "optional": true,
+            "field": "jufoPastParticipationInfo",
+            "description": "<p>(for project coaching sometimes required) An open text field that can be used to give any information on a past jufo participation in a very informal way.</p>"
           }
         ],
         "Subject Object": [
