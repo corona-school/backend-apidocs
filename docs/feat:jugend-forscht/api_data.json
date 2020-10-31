@@ -4985,6 +4985,27 @@
           },
           {
             "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "wasJufoParticipant",
+            "description": "<p>One of &quot;yes&quot;/&quot;no&quot;/&quot;idk&quot;. Indicates whether this person was a past jufo participant.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "hasJufoCertificate",
+            "description": "<p>Indicates if the person has a jufo certificate that can be shown in the screening interview.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "jufoPastParticipationInfo",
+            "description": "<p>A string with info on the person's past jufo participation.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
             "type": "Object",
             "optional": true,
             "field": "official",
