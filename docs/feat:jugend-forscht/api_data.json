@@ -4978,6 +4978,13 @@
           },
           {
             "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "jufoPastParticipationConfirmed",
+            "description": "<p>Can be one of null/true/false and indicates if Corona School has gotten information on whether a student was really a past jufo participant.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
             "type": "Object",
             "optional": true,
             "field": "official",
