@@ -3666,6 +3666,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -3787,9 +3801,9 @@ define({ "api": [
           {
             "group": "Tutee Object",
             "type": "int",
-            "optional": false,
+            "optional": true,
             "field": "grade",
-            "description": "<p>Grade of the pupil</p>"
+            "description": "<p>Grade of the pupil (required if not only registering for project coaching)</p>"
           },
           {
             "group": "Tutee Object",
@@ -3803,7 +3817,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "school",
-            "description": "<p>School type, one of <code>&quot;grundschule&quot;, &quot;gesamtschule&quot;, &quot;hauptschule&quot;, &quot;realschule&quot;, &quot;gymnasium&quot;, &quot;förderschule&quot;, &quot;other&quot;</code></p>"
+            "description": "<p>School type, one of <code>&quot;grundschule&quot;, &quot;gesamtschule&quot;, &quot;hauptschule&quot;, &quot;realschule&quot;, &quot;gymnasium&quot;, &quot;förderschule&quot;, &quot;berufsschule&quot;, &quot;other&quot;</code></p>"
           },
           {
             "group": "Tutee Object",
@@ -3839,6 +3853,34 @@ define({ "api": [
             "optional": false,
             "field": "redirectTo",
             "description": "<p>the page the user sees after registration</p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "bool",
+            "optional": false,
+            "field": "isProjectCoachee",
+            "description": "<p>True, if participating in project coaching</p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "string[]",
+            "optional": true,
+            "field": "isJufoParticipant",
+            "description": "<p>(for project coaching required) One of <code> &quot;yes&quot;, &quot;no&quot;, &quot;unsure&quot;, &quot;neverheard&quot; </code></p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "string",
+            "optional": true,
+            "field": "projectFields",
+            "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectCoachee is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "number",
+            "optional": true,
+            "field": "projectMemberCount",
+            "description": "<p>(for project coaching required) A number of persons that are making the project together. Values between 1 and 3 are allowed.</p>"
           }
         ],
         "Subject Object": [
@@ -3848,6 +3890,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -4042,6 +4098,48 @@ define({ "api": [
             "optional": false,
             "field": "redirectTo",
             "description": "<p>the page the user sees after registration</p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "bool",
+            "optional": false,
+            "field": "isProjectCoach",
+            "description": "<p>True, if eligible for project coaching</p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "bool",
+            "optional": true,
+            "field": "isUniversityStudent",
+            "description": "<p>(for project coaching required) True, if tutor is a university student</p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string",
+            "optional": true,
+            "field": "wasJufoParticipant",
+            "description": "<p>(for project coaching required) One of <code> &quot;yes&quot;, &quot;no&quot;, &quot;idk&quot; </code></p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "boolean",
+            "optional": true,
+            "field": "hasJufoCertificate",
+            "description": "<p>(for project coaching required) One of <code> &quot;yes&quot;, &quot;no&quot;, &quot;idk&quot; </code></p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string[]",
+            "optional": true,
+            "field": "projectFields",
+            "description": "<p>(for project coaching required) An array of strings with identifiers to the project fields if isProjectCoach is true. One of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string",
+            "optional": true,
+            "field": "jufoPastParticipationInfo",
+            "description": "<p>(for project coaching sometimes required) An open text field that can be used to give any information on a past jufo participation in a very informal way.</p>"
           }
         ],
         "Subject Object": [
@@ -4054,17 +4152,17 @@ define({ "api": [
           },
           {
             "group": "Subject Object",
-            "type": "int",
+            "type": "number",
             "optional": false,
             "field": "minGrade",
-            "description": "<p>Minimum grade</p>"
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
           },
           {
             "group": "Subject Object",
-            "type": "int",
+            "type": "number",
             "optional": false,
             "field": "maxGrade",
-            "description": "<p>Maximum grade</p>"
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -4247,6 +4345,20 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>Name of the subject</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "minGrade",
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+          },
+          {
+            "group": "Subject Object",
+            "type": "number",
+            "optional": false,
+            "field": "maxGrade",
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -4631,113 +4743,6 @@ define({ "api": [
     }
   },
   {
-    "type": "POST",
-    "url": "/screening/instructor/:instructorID/update",
-    "title": "updateInstructor",
-    "version": "1.0.1",
-    "description": "<p>Updates an instructor</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
-    "name": "updateCourse",
-    "group": "Screener",
-    "examples": [
-      {
-        "title": "Curl",
-        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" [host]/api/screening/instructor/id/update",
-        "type": "curl"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "JSON Body": [
-          {
-            "group": "JSON Body",
-            "type": "boolean",
-            "optional": false,
-            "field": "isStudent",
-            "description": "<p>the instructors can also be students at the same time</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "boolean",
-            "optional": false,
-            "field": "verified",
-            "description": "<p>wether the instructor gets verified</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>sets the instructors phone number</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "Date|undefined",
-            "optional": false,
-            "field": "birthday",
-            "description": "<p>sets the instructors birthday</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "commentScreener",
-            "description": "<p>adds a comment to the screening</p>"
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "knowscsfrom",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "screenerEmail",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "subjects",
-            "description": ""
-          },
-          {
-            "group": "JSON Body",
-            "type": "string|undefined",
-            "optional": false,
-            "field": "feedback",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "web/controllers/screeningController/index.ts",
-    "groupTitle": "Screener",
-    "header": {
-      "fields": {
-        "": [
-          {
-            "group": "Authentication",
-            "type": "string",
-            "optional": false,
-            "field": "Token",
-            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Token",
-          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "PUT",
     "url": "/screener/:email",
     "title": "updateScreenerByMail",
@@ -4816,6 +4821,15 @@ define({ "api": [
         ]
       }
     },
+    "success": {
+      "examples": [
+        {
+          "title": "Response Example",
+          "content": "{\n   \"firstName\": \"Leon\",\n   \"lastName\": \"Jackson\",\n   \"email\": \"leon-jackson@t-online.de\",\n   \"feedback\": null,\n   \"phone\": null,\n   \"newsletter\": false,\n   \"msg\": null,\n   \"university\": null,\n   \"state\": \"other\",\n   \"isUniversityStudent\": true,\n   \"isTutor\": true,\n   \"isInstructor\": true,\n   \"isProjectCoach\": false,\n   \"subjects\": [\n       {\n           \"name\": \"Englisch\",\n           \"grade\": {\n               \"min\": 1,\n               \"max\": 8\n           }\n       },\n       {\n           \"name\": \"Spanisch\",\n           \"grade\": {\n               \"min\": 6,\n               \"max\": 10\n           }\n       }\n   ],\n   \"projectFields\": [],\n   \"screenings\": {\n       \"tutor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"instructor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"projectCoach\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Instagram\"\n       }\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
     "filename": "web/controllers/screeningController/index.ts",
     "groupTitle": "Student",
     "header": {
@@ -4880,10 +4894,10 @@ define({ "api": [
   {
     "type": "PUT",
     "url": "/student/:email",
-    "title": "updateStudentWithScreeningResult",
+    "title": "updateStudentByMailHandler",
     "version": "1.0.1",
-    "description": "<p>Update a student by her/his email address</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
-    "name": "updateStudentWithScreeningResult",
+    "description": "<p>Update a student by her/his email address.</p> <p>Can be used to update most of the important settings (including the screenings) of a user.</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "updateStudentByMailHandler",
     "group": "Student",
     "examples": [
       {
@@ -4902,8 +4916,152 @@ define({ "api": [
             "field": "email",
             "description": "<p>Student Email Address</p>"
           }
+        ],
+        "Body Parameter": [
+          {
+            "group": "Body Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "screenerEmail",
+            "description": "<p>Screener's Email Address the change should be associated with</p>"
+          }
+        ],
+        "": [
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": false,
+            "field": "isTutor",
+            "description": "<p>whether is 1-on-1 learning tutor</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": false,
+            "field": "isInstructor",
+            "description": "<p>whether wants to give courses or not</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": false,
+            "field": "isProjectCourse",
+            "description": "<p>whether wants to give project coaching</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "Object",
+            "optional": false,
+            "field": "screenings",
+            "description": "<p>Information on the available screenings. Only those are not null/undefined which exist/should exist</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "Object[]",
+            "optional": false,
+            "field": "projectFields",
+            "description": "<p>All project fields for 1-on-1 project coaching</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "Object[]",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p>All subjects for 1-on-1 tutoring</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "feedback",
+            "description": "<p>The student's feedback</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "phone",
+            "description": "<p>The student's phone number</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": false,
+            "field": "newsletter",
+            "description": "<p>Student wanna subscribe newsletter or not</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "msg",
+            "description": "<p>The student's message.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "university",
+            "description": "<p>The student's university.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "string",
+            "optional": true,
+            "field": "state",
+            "description": "<p>The student's state.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "isUniversityStudent",
+            "description": "<p>The student is official registered student (for jufo) or not.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "jufoPastParticipationConfirmed",
+            "description": "<p>Can be one of null/true/false and indicates if Corona School has gotten information on whether a student was really a past jufo participant.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "wasJufoParticipant",
+            "description": "<p>One of &quot;yes&quot;/&quot;no&quot;/&quot;idk&quot;. Indicates whether this person was a past jufo participant.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "hasJufoCertificate",
+            "description": "<p>Indicates if the person has a jufo certificate that can be shown in the screening interview.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "boolean",
+            "optional": true,
+            "field": "jufoPastParticipationInfo",
+            "description": "<p>A string with info on the person's past jufo participation.</p>"
+          },
+          {
+            "group": "StudentEditableInfo",
+            "type": "Object",
+            "optional": true,
+            "field": "official",
+            "description": "<p>Information on the student if official (internship/DLL);</p>"
+          }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Example Body",
+          "content": "\n{\n   \"screenerEmail\": \"maxi-screening@example.org\",\n   \"feedback\": null,\n   \"phone\": null,\n   \"newsletter\": false,\n   \"msg\": null,\n   \"university\": null,\n   \"state\": \"nw\",\n   \"isUniversityStudent\": true,\n   \"isTutor\": true,\n   \"isInstructor\": true,\n   \"isProjectCoach\": false,\n   \"subjects\": [\n       {\n           \"name\": \"Englisch\",\n           \"grade\": {\n               \"min\": 1,\n               \"max\": 8\n           }\n       },\n       {\n           \"name\": \"Spanisch\",\n           \"grade\": {\n               \"min\": 6,\n               \"max\": 10\n           }\n       }\n   ],\n   \"projectFields\": [\n       {\n           \"name\": \"Arbeitswelt\",\n           \"min\": 1,\n           \"max\": 9\n       }\n   ],\n   \"screenings\": {\n       \"tutor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       },\n       \"instructor\": {\n           \"verified\": true,\n           \"comment\": \"🎉\",\n           \"knowsCoronaSchoolFrom\": \"Internet\"\n       }\n   }\n}",
+          "type": "json"
+        }
+      ]
     },
     "filename": "web/controllers/screeningController/index.ts",
     "groupTitle": "Student",
@@ -4926,61 +5084,6 @@ define({ "api": [
           "type": "json"
         }
       ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "verified",
-            "description": "<p>Verification</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>Phone number</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "birthday",
-            "description": "<p>Birthday</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "commentScreener",
-            "description": "<p>a comment made by the screener</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "knowscsfrom",
-            "description": "<p>how did the student get to know corona school?</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "screenerEmail",
-            "description": "<p>the email address of the screener</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "feedback",
-            "description": "<p>feedback on corona school given by the screened students</p>"
-          }
-        ]
-      }
     }
   },
   {
@@ -5363,7 +5466,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
@@ -5442,12 +5545,12 @@ define({ "api": [
       "examples": [
         {
           "title": "Pupil",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"isProjectCoachee\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -5660,7 +5763,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
@@ -5739,12 +5842,12 @@ define({ "api": [
       "examples": [
         {
           "title": "Pupil",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"some-kind-of-userid\",\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"type\": \"pupil\",\n    \"isTutor\": false,\n    \"isInstructor\": false,\n    \"isPupil\": true,\n    \"isParticipant\": false,\n    \"isProjectCoachee\": false,\n    \"active\": true,\n    \"grade\": 7,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 1,\n            \"maxGrade\": 13\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Doe\",\n            \"email\": \"jane.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"john.appleseed@example.com\",\n            \"uuid\": \"1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-1a215b2f-ef17-44f8-a38d-6bcec820a8cf\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -5967,24 +6070,8 @@ define({ "api": [
             "field": "id",
             "description": "<p>User Id</p>"
           }
-        ],
-        "User Subjects": [
-          {
-            "group": "User Subjects",
-            "type": "Subject[]",
-            "optional": false,
-            "field": "root",
-            "description": "<p>Array of subjects</p>"
-          }
         ]
-      },
-      "examples": [
-        {
-          "title": "Example",
-          "content": "[\n    {\n        \"name\": \"Chemie\",\n        \"minGrade\": 1,\n        \"maxGrade\": 4\n    },\n    {\n        \"name\": \"Physik\",\n        \"minGrade\": 10,\n        \"maxGrade\": 13\n    }\n]",
-          "type": "json"
-        }
-      ]
+      }
     },
     "filename": "web/controllers/userController/index.ts",
     "groupTitle": "",
@@ -6016,21 +6103,21 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
             "type": "number",
             "optional": false,
             "field": "minGrade",
-            "description": ""
+            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
           },
           {
             "group": "Subject Object",
             "type": "number",
             "optional": false,
             "field": "maxGrade",
-            "description": ""
+            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
           }
         ]
       }
@@ -6166,6 +6253,41 @@ define({ "api": [
           },
           {
             "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "division",
+            "description": "<p><i>Only for mentors:</i> Division of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "expertise",
+            "description": "<p><i>Only for mentors:</i> Expertise of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "subjects",
+            "description": "<p><i>Only for mentors:</i> Subjects of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "boolean",
+            "optional": false,
+            "field": "teachingExperience",
+            "description": "<p><i>Only for mentors:</i> Teaching experience of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><i>Only for mentors:</i> Description of the mentor</p>"
+          },
+          {
+            "group": "User Personal",
             "type": "number",
             "optional": false,
             "field": "lastUpdatedSettingsViaBlocker",
@@ -6182,6 +6304,11 @@ define({ "api": [
         {
           "title": "Student",
           "content": "{\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"matchesRequested\": 0\n}",
+          "type": "json"
+        },
+        {
+          "title": "Mentor",
+          "content": "{\n    \"firstname\": \"Frank N.\",\n    \"lastname\": \"Stein\",\n    \"division\": [\"video\", \"supervision\"],\n    \"expertise\": [\"technical support\"],\n    \"subjects\": [\n        {\"name\": \"Englisch\", \"minGrade\": 1, \"maxGrade\": 13}\n    ],\n    \"teachingExperience\": false,\n    \"description\": \"I like trains\"\n}",
           "type": "json"
         }
       ]
@@ -6499,7 +6626,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Name</p>"
+            "description": "<p>Name of the subject</p>"
           },
           {
             "group": "Subject Object",
