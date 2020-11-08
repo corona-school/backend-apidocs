@@ -6176,6 +6176,150 @@
     }
   },
   {
+    "type": "POST",
+    "url": "/user/:id/role/projectcoach",
+    "title": "postUserRoleProjectCoach",
+    "version": "1.1.0",
+    "description": "<p>Add the project coach role to the current user by supplying project fields for matching.</p> <p>The user has to be authenticated.</p>",
+    "name": "postUserRoleProjectCoach",
+    "group": "User",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/user/<ID>/role/projectcoach",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/userController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Body": [
+          {
+            "group": "Body",
+            "type": "object",
+            "optional": false,
+            "field": "projectFields",
+            "description": "<p>Array of project field objects (can contain grade information in the usual format)</p>"
+          },
+          {
+            "group": "Body",
+            "type": "string",
+            "optional": true,
+            "field": "wasJufoParticipant",
+            "description": "<p>One of <code>&quot;yes&quot;, &quot;no&quot;, &quot;idk&quot;</code></p>"
+          },
+          {
+            "group": "Body",
+            "type": "bool",
+            "optional": true,
+            "field": "isUniversityStudent",
+            "description": "<p>Indicates if officially enrolled in a university</p>"
+          },
+          {
+            "group": "Body",
+            "type": "bool",
+            "optional": true,
+            "field": "hasJufoCertificate",
+            "description": "<p>If <code>true</code> the person has a jufo certificate</p>"
+          },
+          {
+            "group": "Body",
+            "type": "string",
+            "optional": true,
+            "field": "jufoPastParticipationInfo",
+            "description": "<p>Info on the past jufo participation</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "PUT",
     "url": "/user/:id",
     "title": "putUser",
