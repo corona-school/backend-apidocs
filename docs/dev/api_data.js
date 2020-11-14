@@ -6320,6 +6320,136 @@ define({ "api": [
     }
   },
   {
+    "type": "POST",
+    "url": "/user/:id/role/projectcoachee",
+    "title": "postUserRoleProjectCoachee",
+    "version": "1.1.0",
+    "description": "<p>Add the project coachee role to the current user by supplying project fields for matching.</p> <p>The user has to be authenticated.</p>",
+    "name": "postUserRoleProjectCoachee",
+    "group": "User",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/user/<ID>/role/projectcoachee",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/userController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Body": [
+          {
+            "group": "Body",
+            "type": "object",
+            "optional": false,
+            "field": "projectFields",
+            "description": "<p>Array of project field identifiers, one of <code>&quot;Arbeitswelt&quot;, &quot;Biologie&quot;, &quot;Chemie&quot;, &quot;Geo-und-Raumwissenschaften&quot;, &quot;Mathematik/Informatik&quot;, &quot;Physik&quot;, &quot;Technik&quot;</code></p>"
+          },
+          {
+            "group": "Body",
+            "type": "string",
+            "optional": false,
+            "field": "isJufoParticipant",
+            "description": "<p>One of <code>&quot;yes&quot;, &quot;no&quot;, &quot;unsure&quot;, &quot;neverheard&quot;</code></p>"
+          },
+          {
+            "group": "Body",
+            "type": "number",
+            "optional": false,
+            "field": "projectMemberCount",
+            "description": "<p>Number indicating the number of project members (can be either 1, or 2 or 3)</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "PUT",
     "url": "/user/:id",
     "title": "putUser",
