@@ -6534,6 +6534,13 @@ define({ "api": [
           },
           {
             "group": "User Personal",
+            "type": "number",
+            "optional": true,
+            "field": "projectMatchesRequested",
+            "description": "<p>Number of total project match requests. A student may request at most 2 matches at a time and may have at most a total of 4 matches at the same time</p>"
+          },
+          {
+            "group": "User Personal",
             "type": "string",
             "optional": false,
             "field": "state",
