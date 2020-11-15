@@ -3426,6 +3426,136 @@
     }
   },
   {
+    "type": "DELETE",
+    "url": "/user/:id/projectMatches/:uuid",
+    "title": "dissolveProjectMatch",
+    "version": "1.1.0",
+    "description": "<p>Dissolve the specified ProjectMatch.</p> <p>This endpoint can be used to signal, that a user wants to dissolve his project match. The matched partner will be notified of this action. Both students and pupils are only authorized to dissolve project matches, where they are a part of.</p>",
+    "name": "deleteProjectMatch",
+    "group": "ProjectMatch",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X DELETE -H \"Token: <AUTHTOKEN>\"-H \"Content-Type: application/json\"  https://api.corona-school.de/api/user/<ID>/projectMatches/<UUID>",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "uuid",
+            "description": "<p>UUID of the Project Match</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/projectMatchController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "ProjectMatchDissolveReason Object": [
+          {
+            "group": "ProjectMatchDissolveReason Object",
+            "type": "number",
+            "optional": false,
+            "field": "reason",
+            "description": "<p>Reason for dissolving. Should be an integer between 1 and the maximum allowed reason.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Pupil / Student",
+          "content": "{\n    \"reason\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "GET",
     "url": "/courses",
     "title": "GetSchools",
