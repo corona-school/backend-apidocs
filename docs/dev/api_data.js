@@ -3426,6 +3426,136 @@ define({ "api": [
     }
   },
   {
+    "type": "DELETE",
+    "url": "/user/:id/projectMatches/:uuid",
+    "title": "dissolveProjectMatch",
+    "version": "1.1.0",
+    "description": "<p>Dissolve the specified ProjectMatch.</p> <p>This endpoint can be used to signal, that a user wants to dissolve his project match. The matched partner will be notified of this action. Both students and pupils are only authorized to dissolve project matches, where they are a part of.</p>",
+    "name": "deleteProjectMatch",
+    "group": "ProjectMatch",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X DELETE -H \"Token: <AUTHTOKEN>\"-H \"Content-Type: application/json\"  https://api.corona-school.de/api/user/<ID>/projectMatches/<UUID>",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "uuid",
+            "description": "<p>UUID of the Project Match</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/projectMatchController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "ProjectMatchDissolveReason Object": [
+          {
+            "group": "ProjectMatchDissolveReason Object",
+            "type": "number",
+            "optional": false,
+            "field": "reason",
+            "description": "<p>Reason for dissolving. Should be an integer between 1 and the maximum allowed reason.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Pupil / Student",
+          "content": "{\n    \"reason\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "GET",
     "url": "/courses",
     "title": "GetSchools",
@@ -5412,6 +5542,13 @@ define({ "api": [
           },
           {
             "group": "User Object",
+            "type": "number",
+            "optional": false,
+            "field": "projectMatchesRequested",
+            "description": "<p>Number of project matches requested by the user</p>"
+          },
+          {
+            "group": "User Object",
             "type": "string",
             "optional": false,
             "field": "screeningStatus",
@@ -5437,6 +5574,13 @@ define({ "api": [
             "optional": false,
             "field": "matches",
             "description": "<p>List of current matches</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ProjectMatch[]",
+            "optional": false,
+            "field": "projectMatches",
+            "description": "<p>List of current project matches</p>"
           },
           {
             "group": "User Object",
@@ -5550,7 +5694,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
           "type": "json"
         }
       ]
@@ -5709,6 +5853,13 @@ define({ "api": [
           },
           {
             "group": "User Object",
+            "type": "number",
+            "optional": false,
+            "field": "projectMatchesRequested",
+            "description": "<p>Number of project matches requested by the user</p>"
+          },
+          {
+            "group": "User Object",
             "type": "string",
             "optional": false,
             "field": "screeningStatus",
@@ -5734,6 +5885,13 @@ define({ "api": [
             "optional": false,
             "field": "matches",
             "description": "<p>List of current matches</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ProjectMatch[]",
+            "optional": false,
+            "field": "projectMatches",
+            "description": "<p>List of current project matches</p>"
           },
           {
             "group": "User Object",
@@ -5847,7 +6005,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
           "type": "json"
         }
       ]
@@ -6506,6 +6664,13 @@ define({ "api": [
           },
           {
             "group": "User Personal",
+            "type": "number",
+            "optional": true,
+            "field": "projectMatchesRequested",
+            "description": "<p>Number of total project match requests. A student may request at most 2 matches at a time and may have at most a total of 4 matches at the same time</p>"
+          },
+          {
+            "group": "User Personal",
             "type": "string",
             "optional": false,
             "field": "state",
@@ -6750,6 +6915,123 @@ define({ "api": [
         {
           "title": "Token",
           "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "PUT",
+    "url": "/user/:id/projectFields",
+    "title": "putUserProjectFields",
+    "version": "1.1.0",
+    "description": "<p>Set the project fields of the user.</p> <p>This endpoint allows editing of the user's project fields. Please be aware, that students and pupils have different project field formats (students have additional grade restrictions). The user has to be authenticated and can only edit his own project fields.</p> <p>The project fields are given as an array of ProjectField objects in the request's body.</p>",
+    "name": "putUserProjectFields",
+    "group": "User",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X PUT -H \"Token: <AUTHTOKEN>\" -H \"Content-Type: application/json\" https://api.corona-school.de/api/user/<ID>/projectFields -d \"<REQUEST>\"",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/userController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ],
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        },
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
           "type": "json"
         }
       ]
