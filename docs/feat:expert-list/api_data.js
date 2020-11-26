@@ -6095,6 +6095,13 @@ define({ "api": [
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ExpertData",
+            "optional": false,
+            "field": "expertData",
+            "description": "<p><i>Only available for students (optional):</i> Expert specific data</p>"
           }
         ],
         "Subject Object": [
@@ -6187,7 +6194,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n    \"expertData\": {\n        \"id\": 2,\n        \"contactEmail\": \"contact@jufo-tufo.de\",\n        \"description\": null,\n        \"expertiseTags\": [\n            \"LTE\",\n            \"Glasfaser\"\n        ],\n        \"active\": true,\n        \"allowed\": true\n    },\n}",
           "type": "json"
         }
       ]
@@ -6406,6 +6413,13 @@ define({ "api": [
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ExpertData",
+            "optional": false,
+            "field": "expertData",
+            "description": "<p><i>Only available for students (optional):</i> Expert specific data</p>"
           }
         ],
         "Subject Object": [
@@ -6488,6 +6502,50 @@ define({ "api": [
             "field": "date",
             "description": "<p>Unix timestamp of when these persons were matched</p>"
           }
+        ],
+        "ExpertData Object": [
+          {
+            "group": "ExpertData Object",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Unique identifier for the ExpertData.</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string",
+            "optional": false,
+            "field": "contactEmail",
+            "description": "<p>Email adress specific for contacting the expert.</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><em>(optional)</em> Description given by the expert on his expertise</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "expertiseTags",
+            "description": "<p>Tags which describe the expert's fields of expertise</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "boolean",
+            "optional": false,
+            "field": "active",
+            "description": "<p>Indicates whether the expert agrees on publishing his data on the platform</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "boolean",
+            "optional": false,
+            "field": "allowed",
+            "description": "<p>Indicates whether the publishing is allowed by Corona School staff</p>"
+          }
         ]
       },
       "examples": [
@@ -6498,7 +6556,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n    \"expertData\": {\n        \"id\": 2,\n        \"contactEmail\": \"contact@jufo-tufo.de\",\n        \"description\": null,\n        \"expertiseTags\": [\n            \"LTE\",\n            \"Glasfaser\"\n        ],\n        \"active\": true,\n        \"allowed\": true\n    },\n}",
           "type": "json"
         }
       ]
