@@ -3299,7 +3299,7 @@
     }
   },
   {
-    "type": "POST",
+    "type": "PUT",
     "url": "/expert/:id",
     "title": "putExpert",
     "version": "1.1.0",
@@ -6541,10 +6541,10 @@
           },
           {
             "group": "ExpertData Object",
-            "type": "boolean",
+            "type": "string",
             "optional": false,
             "field": "allowed",
-            "description": "<p>Indicates whether the publishing is allowed by Corona School staff</p>"
+            "description": "<p>Indicates whether the publishing is allowed by Corona School staff. One of <code>&quot;pending&quot;, &quot;yes&quot;, &quot;no&quot;</code>.</p>"
           }
         ]
       },
