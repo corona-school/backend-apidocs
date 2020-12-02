@@ -259,6 +259,54 @@
     }
   },
   {
+    "type": "GET",
+    "url": "/certificates",
+    "title": "",
+    "version": "1.1.0",
+    "description": "<p>View certificate data</p> <p>Returns data for certificates requested by the user or to be approved by the user (either student = user or pupil = user)</p>",
+    "name": "getCertificates",
+    "group": "Certificate",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET https://api.corona-school.de/api/certificates",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/certificateController/index.ts",
+    "groupTitle": "Certificate",
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "POST",
     "url": "/course",
     "title": "AddCourse",
