@@ -2991,6 +2991,44 @@
     }
   },
   {
+    "type": "GET",
+    "url": "/courses/tags",
+    "title": "getCourseTags",
+    "version": "1.1.0",
+    "description": "<p>Retrieves all used course tags</p> <p>Only students or pupils can access this.</p>",
+    "name": "getCourseTags",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" [host]/api/courses/tags",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "DELETE",
     "url": "/user/:id/matches/:uuid",
     "title": "dissolveMatch",
@@ -4633,6 +4671,102 @@
     }
   },
   {
+    "type": "POST",
+    "url": "/screening/courses/tags/create",
+    "title": "createCourseTag",
+    "version": "1.0.1",
+    "description": "<p>Adds a course tag</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "createCourseTag",
+    "group": "Screener",
+    "parameter": {
+      "fields": {
+        "URL Query": [
+          {
+            "group": "URL Query",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the new course tag</p>"
+          },
+          {
+            "group": "URL Query",
+            "type": "string",
+            "optional": false,
+            "field": "category",
+            "description": "<p>The category of the new tag</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/courses/tags/create\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Screener",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/screening/courses/tags",
+    "title": "getCourseTags",
+    "version": "1.0.1",
+    "description": "<p>Retrieves all used course tags</p> <p>Only screeners with a valid token in the request header can use the API.</p>",
+    "name": "getCourseTags",
+    "group": "Screener",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" [host]/api/screening/courses/tags",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/screeningController/index.ts",
+    "groupTitle": "Screener",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "GET",
     "url": "/screening/courses",
     "title": "getCourses",
@@ -4858,6 +4992,13 @@
             "optional": false,
             "field": "category",
             "description": "<p>the new category (&quot;revision&quot;, &quot;club&quot;, &quot;coaching&quot;)</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "Object[]|undefined",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>the new course tags, items must have either identifier (string) or name (string) as property</p>"
           },
           {
             "group": "JSON Body",
