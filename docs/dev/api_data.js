@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "GET",
-    "url": "/certificate/:student/:match",
+    "url": "/certificate/create/:student/:match",
     "title": "getCertificate",
     "version": "1.1.0",
     "description": "<p>Fetch a certificate</p> <p>This endpoint allows fetching a certificate (as PDF) with the second page customized for a pupil. It is only available for students.</p>",
@@ -65,6 +65,16 @@ define({ "api": [
             "optional": false,
             "field": "categories",
             "description": "<p>String of category texts for pupil's student description, separated by newlines</p>"
+          }
+        ],
+        "URL Query": [
+          {
+            "group": "URL Query",
+            "type": "string",
+            "optional": false,
+            "field": "lang",
+            "defaultValue": "de",
+            "description": "<p>The language</p>"
           }
         ]
       }
@@ -166,7 +176,111 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/certificate/:certificateId",
+    "url": "/certificate/:certificateId?lang=...",
+    "title": "getCertificateConfirmation",
+    "version": "1.1.0",
+    "description": "<p>View a certificate</p> <p>Returns the certificate as PDF</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "certificateId",
+            "description": "<p>UUID of the certificate</p>"
+          }
+        ],
+        "URL Query": [
+          {
+            "group": "URL Query",
+            "type": "string",
+            "optional": false,
+            "field": "lang",
+            "defaultValue": "de",
+            "description": "<p>The language</p>"
+          }
+        ]
+      }
+    },
+    "name": "getCertificate",
+    "group": "Certificate",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET https://api.corona-school.de/api/certificate/000000001-0000-0000-0701-1b4c4c526384",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/certificateController/index.ts",
+    "groupTitle": "Certificate",
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/certificate/:certificateId/confirmation?lang=...",
     "title": "getCertificateConfirmation",
     "version": "1.1.0",
     "description": "<p>View a certificate</p> <p>This endpoint allows looking at a certificate (as HTML) as confirmation link printed on the PDF Certificate.</p>",
@@ -180,6 +294,16 @@ define({ "api": [
             "field": "certificateId",
             "description": "<p>UUID of the certificate</p>"
           }
+        ],
+        "URL Query": [
+          {
+            "group": "URL Query",
+            "type": "string",
+            "optional": false,
+            "field": "lang",
+            "defaultValue": "de",
+            "description": "<p>The language</p>"
+          }
         ]
       }
     },
@@ -188,7 +312,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Curl",
-        "content": "curl -k -i -X GET https://api.corona-school.de/api/certificate/000000001-0000-0000-0701-1b4c4c526384",
+        "content": "curl -k -i -X GET https://api.corona-school.de/api/certificate/000000001-0000-0000-0701-1b4c4c526384/confirmation",
         "type": "curl"
       }
     ],
