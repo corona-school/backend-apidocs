@@ -611,6 +611,147 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/course/:id/instructor",
+    "title": "AddInstructor",
+    "version": "1.1.0",
+    "description": "<p>Add a new instructor to a course (and all of its subcourses too)</p> <p>It will expect an email address of an existent, active and sucessfully screened instructor (a student who is an instructor)</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          }
+        ]
+      }
+    },
+    "name": "AddInstructor",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl --location --request POST 'localhost:5000/api/course/2/instructor' --header 'Token: authtokenS1' --header 'Content-Type: application/json' --data-raw '{ \"email\": \"mel-98@gmail.com\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ],
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        },
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "InstructorInfo Object": [
+          {
+            "group": "InstructorInfo Object",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>The email address of the instructor</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
     "url": "/course/:id/subcourse/:subid/lecture",
     "title": "AddLecture",
     "version": "1.1.0",
