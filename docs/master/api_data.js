@@ -4162,7 +4162,7 @@ define({ "api": [
           {
             "group": "Query Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "state",
             "description": "<p>The state of Germany for which the cooperation schools should be returned.</p>"
           }
@@ -5028,7 +5028,7 @@ define({ "api": [
           {
             "group": "StateTutee Object",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "state",
             "description": "<p>State, one of <code>&quot;bw&quot;, &quot;by&quot;, &quot;be&quot;, &quot;bb&quot;, &quot;hb&quot;, &quot;hh&quot;, &quot;he&quot;, &quot;mv&quot;, &quot;ni&quot;, &quot;nw&quot;, &quot;rp&quot;, &quot;sl&quot;, &quot;sn&quot;, &quot;st&quot;, &quot;sh&quot;, &quot;th&quot;, &quot;other&quot;</code></p>"
           },
