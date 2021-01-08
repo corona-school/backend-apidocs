@@ -5318,6 +5318,13 @@
             "optional": false,
             "field": "search",
             "description": "<p>A query text to be searched in the title and description</p>"
+          },
+          {
+            "group": "URL Query",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page</p>"
           }
         ]
       }
@@ -5376,6 +5383,13 @@
             "optional": false,
             "field": "search",
             "description": "<p>fuzzy search inside the instructors name and email, supporting Postgres ILIKE syntax</p>"
+          },
+          {
+            "group": "URL Query",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page</p>"
           }
         ]
       }
