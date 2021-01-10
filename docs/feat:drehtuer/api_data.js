@@ -532,6 +532,20 @@ define({ "api": [
             "optional": false,
             "field": "submit",
             "description": "<p>If true set status to submitted. Only restricted editing will be possible afterwards</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "bool",
+            "optional": false,
+            "field": "allowContact",
+            "description": "<p>If true, course participants are allowed to contact the course instructor via a form.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "string",
+            "optional": true,
+            "field": "correspondentID",
+            "description": "<p>An instructor ID who should be the correspondent for this course. The user's ID must be contained in the course's instructors. It is required if allowContact is true.</p>"
           }
         ],
         "Course Return Object": [
@@ -1470,6 +1484,127 @@ define({ "api": [
     }
   },
   {
+    "type": "POST",
+    "url": "/course/:id/image",
+    "title": "ChangeImage",
+    "version": "1.1.0",
+    "description": "<p>Changes the image of a course</p> <p>Expects multipart/form-data image (PNG, JPEG or GIF)</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          }
+        ]
+      }
+    },
+    "name": "ChangeImage",
+    "group": "Courses",
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ],
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        },
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "PUT",
     "url": "/course/:id",
     "title": "EditCourse",
@@ -1584,6 +1719,20 @@ define({ "api": [
             "optional": false,
             "field": "submit",
             "description": "<p><em>(optional)</em> If true set status to submitted. Only restricted editing will be possible afterwards, <em>only if not submitted</em></p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "bool",
+            "optional": false,
+            "field": "allowContact",
+            "description": "<p>If true, course participants are allowed to contact the course instructor via a form.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "string",
+            "optional": true,
+            "field": "correspondentID",
+            "description": "<p>An instructor ID who should be the correspondent for this course. The user's ID must be contained in the course's instructors It is required if allowContact is true.</p>"
           }
         ]
       }
@@ -2120,6 +2269,20 @@ define({ "api": [
             "optional": false,
             "field": "publicRanking",
             "description": "<p>A number indicating a ranking/order of how courses should be displayed in UI.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "bool",
+            "optional": false,
+            "field": "allowContact",
+            "description": "<p>If true, course participants are allowed to contact the course instructor via a form.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "string",
+            "optional": true,
+            "field": "correspondentID",
+            "description": "<p>An instructor ID who is the correspondent for this course. The user's ID must be contained in the course's instructors. It is only contained if the instructors are set at the same time (i.e. if accessed by authorized student who is one of the course's instructors).</p>"
           }
         ],
         "Subcourse Object": [
@@ -2192,6 +2355,13 @@ define({ "api": [
             "optional": false,
             "field": "joined",
             "description": "<p><em>(requires authentication)</em> True if the participant has joined this subcourse</p>"
+          },
+          {
+            "group": "Subcourse Object",
+            "type": "bool",
+            "optional": false,
+            "field": "onWaitingList",
+            "description": "<p><em>(requires authentication)</em> True if the participant has joined the waiting list of this subcourse</p>"
           },
           {
             "group": "Subcourse Object",
@@ -2464,6 +2634,96 @@ define({ "api": [
   },
   {
     "type": "GET",
+    "url": "/course/test/meeting/join",
+    "title": "TestJoinCourseMeetingHandler",
+    "version": "1.1.0",
+    "description": "<p>Get a new empty BBB-Meeting for testing purposes.</p> <p>This endpoint will provide a url to join the BBB meeting with a randomly generated name</p>",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/test/meeting/join",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "name": "GetCourseTestMeetingJoin",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
     "url": "/courses",
     "title": "GetCourses",
     "version": "1.1.0",
@@ -2628,6 +2888,20 @@ define({ "api": [
             "optional": false,
             "field": "publicRanking",
             "description": "<p>A number indicating a ranking/order of how courses should be displayed in UI.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "bool",
+            "optional": false,
+            "field": "allowContact",
+            "description": "<p>If true, course participants are allowed to contact the course instructor via a form.</p>"
+          },
+          {
+            "group": "Course Object",
+            "type": "string",
+            "optional": true,
+            "field": "correspondentID",
+            "description": "<p>An instructor ID who is the correspondent for this course. The user's ID must be contained in the course's instructors. It is only contained if the instructors are set at the same time (i.e. if accessed by authorized student who is one of the course's instructors).</p>"
           }
         ],
         "Subcourse Object": [
@@ -2700,6 +2974,13 @@ define({ "api": [
             "optional": false,
             "field": "joined",
             "description": "<p><em>(requires authentication)</em> True if the participant has joined this subcourse</p>"
+          },
+          {
+            "group": "Subcourse Object",
+            "type": "bool",
+            "optional": false,
+            "field": "onWaitingList",
+            "description": "<p><em>(requires authentication)</em> True if the participant has joined the waiting list of this subcourse</p>"
           },
           {
             "group": "Subcourse Object",
@@ -2990,6 +3271,147 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/course/:id/subcourse/:subid/instructormail",
+    "title": "InstructorMail",
+    "version": "1.1.0",
+    "description": "<p>Send an email to a course's instructors</p> <p>The subcourse's participants may use this endpoint to send an email to all instructors of that course</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "subid",
+            "description": "<p>ID of the subcourse</p>"
+          }
+        ]
+      }
+    },
+    "name": "InstructorMail",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/subcourse/<SUBID>/instructormail -d \"<REQUEST\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "InstructorMail Object": [
+          {
+            "group": "InstructorMail Object",
+            "type": "string",
+            "optional": false,
+            "field": "subject",
+            "description": "<p>Subject</p>"
+          },
+          {
+            "group": "InstructorMail Object",
+            "type": "string",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Plaintext body of the mail</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
     "url": "/course/:id/subcourse/:subid/participants/:userid",
     "title": "JoinCourse",
     "version": "1.1.0",
@@ -3027,6 +3449,145 @@ define({ "api": [
       {
         "title": "Curl",
         "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/subcourse/<SUBID>/participants/<USERID>",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "409",
+            "description": "<p>Resource conflicts with existing resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Conflict",
+          "content": "HTTP/1.1 409 Conflict\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
+    "url": "/course/:id/subcourse/:subid/waitinglist/:userid",
+    "title": "JoinCourseWaitingList",
+    "version": "1.1.0",
+    "description": "<p>Join a (sub)course waiting list.</p> <p>This endpoint allows joining a subcourse's waiting list. Only accessable for authorized participants. If subcourse has already started or pupil already is on the waiting list 409 Conflict is returned. Joining the waiting list is only possible if course is full.</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "subid",
+            "description": "<p>ID of the subcourse</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>ID of the participant</p>"
+          }
+        ]
+      }
+    },
+    "name": "JoinCourseWaitingList",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/subcourse/<SUBID>/waitinglist/<USERID>",
         "type": "curl"
       }
     ],
@@ -3231,6 +3792,255 @@ define({ "api": [
           "title": "No Content",
           "content": "HTTP/1.1 204 No Content\n(empty body)",
           "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "DELETE",
+    "url": "/course/:id/subcourse/:subid/waitinglist/:userid",
+    "title": "LeaveCourseWaitingList",
+    "version": "1.1.0",
+    "description": "<p>Leave a course's waiting list.</p> <p>This endpoint allows leaving the waiting list of a course. Only accessable for authorized participants.</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "subid",
+            "description": "<p>ID of the subcourse</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>ID of the participant</p>"
+          }
+        ]
+      }
+    },
+    "name": "LeaveCourseWaitingList",
+    "group": "Courses",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X DELETE -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/course/<ID>/subcourse/<SUBID>/waitinglist/<USERID>",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
+    "url": "/course/:id/image",
+    "title": "RemoveImage",
+    "version": "1.1.0",
+    "description": "<p>Remove the image of a course</p>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the main course</p>"
+          }
+        ]
+      }
+    },
+    "name": "RemoveImage",
+    "group": "Courses",
+    "filename": "web/controllers/courseController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ],
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        },
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
         },
         {
           "title": "Bad Request",
@@ -3920,7 +4730,7 @@ define({ "api": [
           {
             "group": "Query Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "state",
             "description": "<p>The state of Germany for which the cooperation schools should be returned.</p>"
           }
@@ -4786,7 +5596,7 @@ define({ "api": [
           {
             "group": "StateTutee Object",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "state",
             "description": "<p>State, one of <code>&quot;bw&quot;, &quot;by&quot;, &quot;be&quot;, &quot;bb&quot;, &quot;hb&quot;, &quot;hh&quot;, &quot;he&quot;, &quot;mv&quot;, &quot;ni&quot;, &quot;nw&quot;, &quot;rp&quot;, &quot;sl&quot;, &quot;sn&quot;, &quot;st&quot;, &quot;sh&quot;, &quot;th&quot;, &quot;other&quot;</code></p>"
           },
@@ -5076,6 +5886,13 @@ define({ "api": [
             "optional": false,
             "field": "search",
             "description": "<p>A query text to be searched in the title and description</p>"
+          },
+          {
+            "group": "URL Query",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page</p>"
           }
         ]
       }
@@ -5134,6 +5951,13 @@ define({ "api": [
             "optional": false,
             "field": "search",
             "description": "<p>fuzzy search inside the instructors name and email, supporting Postgres ILIKE syntax</p>"
+          },
+          {
+            "group": "URL Query",
+            "type": "string|undefined",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page</p>"
           }
         ]
       }
