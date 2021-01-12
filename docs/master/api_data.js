@@ -4104,6 +4104,506 @@ define({ "api": [
     }
   },
   {
+    "type": "POST",
+    "url": "/expert/:id/contact",
+    "title": "contactExpert",
+    "version": "1.1.0",
+    "description": "<p>Writes an email to an expert</p> <p>If email was successfully sent, status code 200 is returned. Note: delivery cannot be guaranteed.</p>",
+    "name": "ContactExpert",
+    "group": "Expert",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Expert Id</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" -H \"Content-Type: application/json\" https://[HOST]/api/expert/:id/contact",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/expertController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ],
+        "HTTP Header": [
+          {
+            "group": "HTTP Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p><code>application/json</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        },
+        {
+          "title": "Content-Type",
+          "content": "Content-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "ContactExpert Object": [
+          {
+            "group": "ContactExpert Object",
+            "type": "string",
+            "optional": false,
+            "field": "emailText",
+            "description": "<p>The text of the email to be sent</p>"
+          },
+          {
+            "group": "ContactExpert Object",
+            "type": "string",
+            "optional": false,
+            "field": "subject",
+            "description": "<p><em>(optional)</em> The subject of the email to be sent. An empty string is taken by default.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "404",
+            "description": "<p>The requested resource was not found</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Not Found",
+          "content": "HTTP/1.1 404 Not Found\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/expert",
+    "title": "getExperts",
+    "version": "1.1.0",
+    "description": "<p>Get all active and allowed experts in the database</p> <p>Only students or pupils with a valid token in the header can use the API.</p>",
+    "name": "getExperts",
+    "group": "Expert",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" https://[HOST]/api/expert",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/expertController/index.ts",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Expert Object": [
+          {
+            "group": "Expert Object",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The ID of the expert.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "lastName",
+            "description": "<p>The last name of the expert.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "firstName",
+            "description": "<p>The first name of the expert.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><em>(optional)</em> A description provided by the expert.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "expertiseTags",
+            "description": "<p>Tags describing the expert's fields of expertise.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "projectFields",
+            "description": "<p>The project fields of the expert.</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/expert/tags",
+    "title": "getUsedTags",
+    "version": "1.1.0",
+    "description": "<p>Get all expertise tags in the database</p> <p>Only students or pupils with a valid token in the header can use the API.</p>",
+    "name": "getUsedTags",
+    "group": "Expert",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" https://[HOST]/api/expert/tags",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/expertController/index.ts",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Expert Object": [
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the tag.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "number[]",
+            "optional": false,
+            "field": "experts",
+            "description": "<p>The unique of the experts who chose thies particular tag</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "200",
+            "description": "<p>The request was successful and contains a response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "OK",
+          "content": "HTTP/1.1 200 OK\n(response)",
+          "type": "json"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "PUT",
+    "url": "/expert/:id",
+    "title": "putExpert",
+    "version": "1.1.0",
+    "description": "<p>As a student become an expert or change my expert data</p> <p>The user has to be authenticated.</p>",
+    "name": "postExpert",
+    "group": "Expert",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/expert/<ID>",
+        "type": "curl"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User Id</p>"
+          }
+        ]
+      }
+    },
+    "filename": "web/controllers/expertController/index.ts",
+    "groupTitle": "",
+    "header": {
+      "fields": {
+        "": [
+          {
+            "group": "Authentication",
+            "type": "string",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>HTTP Header: Authentication Token of a valid user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Token",
+          "content": "Token: longAuthenticationToken_With_Var10u5_Ch4r4ct3r5",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Expert Object": [
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "contactEmail",
+            "description": "<p><em>(optional)</em> The email adress on which the expert can be contacted from pupils. If none is given, the original email will be taken.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><em>(optional)</em> A description provided by the expert.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "expertiseTags",
+            "description": "<p>Tags describing the expert's fields of expertise.</p>"
+          },
+          {
+            "group": "Expert Object",
+            "type": "boolean",
+            "optional": false,
+            "field": "active",
+            "description": "<p>If true the person consents that her/ his data will be accessible by other users.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "DELETE",
     "url": "/user/:id/matches/:uuid",
     "title": "dissolveMatch",
@@ -6894,6 +7394,13 @@ define({ "api": [
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ExpertData",
+            "optional": false,
+            "field": "expertData",
+            "description": "<p><i>Only available for students (optional):</i> Expert specific data</p>"
           }
         ],
         "Subject Object": [
@@ -6986,7 +7493,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n    \"expertData\": {\n        \"id\": 2,\n        \"contactEmail\": \"contact@jufo-tufo.de\",\n        \"description\": null,\n        \"expertiseTags\": [\n            \"LTE\",\n            \"Glasfaser\"\n        ],\n        \"active\": true,\n        \"allowed\": true\n    },\n}",
           "type": "json"
         }
       ]
@@ -7205,6 +7712,13 @@ define({ "api": [
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The unix timestamp of when the user registered</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "ExpertData",
+            "optional": false,
+            "field": "expertData",
+            "description": "<p><i>Only available for students (optional):</i> Expert specific data</p>"
           }
         ],
         "Subject Object": [
@@ -7287,6 +7801,50 @@ define({ "api": [
             "field": "date",
             "description": "<p>Unix timestamp of when these persons were matched</p>"
           }
+        ],
+        "ExpertData Object": [
+          {
+            "group": "ExpertData Object",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Unique identifier for the ExpertData.</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string",
+            "optional": false,
+            "field": "contactEmail",
+            "description": "<p>Email adress specific for contacting the expert.</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p><em>(optional)</em> Description given by the expert on his expertise</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string[]",
+            "optional": false,
+            "field": "expertiseTags",
+            "description": "<p>Tags which describe the expert's fields of expertise</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "boolean",
+            "optional": false,
+            "field": "active",
+            "description": "<p>Indicates whether the expert agrees on publishing his data on the platform</p>"
+          },
+          {
+            "group": "ExpertData Object",
+            "type": "string",
+            "optional": false,
+            "field": "allowed",
+            "description": "<p>Indicates whether the publishing is allowed by Corona School staff. One of <code>&quot;pending&quot;, &quot;yes&quot;, &quot;no&quot;</code>.</p>"
+          }
         ]
       },
       "examples": [
@@ -7297,7 +7855,7 @@ define({ "api": [
         },
         {
           "title": "Student",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"userid-of-some-kind\",\n    \"firstname\": \"Jane\",\n    \"lastname\": \"Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"type\": \"student\",\n    \"isTutor\": true,\n    \"isInstructor\": false,\n    \"isPupil\": false,\n    \"isParticipant\": false,\n    \"isProjectCoach\": false,\n    \"active\": true,\n    \"screeningStatus\": \"ACCEPTED\",\n    \"instructorScreeningStatus\": \"ACCEPTED\",\n    \"projectCoachingScreeningStatus\": \"ACCEPTED\",\n    \"matchesRequested\": 1,\n    \"projectMatchesRequested\": 1,\n    \"subjects\": [\n        {\n            \"name\": \"Chinesisch\",\n            \"minGrade\": 5,\n            \"maxGrade\": 8\n        }\n    ],\n    \"matches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"subjects\": [\n                \"Englisch\",\n                \"Chinesisch\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"date\": 1590834509\n        }\n    ],\n    \"dissolvedMatches\": [\n        {\n            \"firstname\": \"Jane\",\n            \"lastname\": \"Appleseed\",\n            \"email\": \"jane.appleseed@example.com\",\n            \"uuid\": \"24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"grade\": 9,\n            \"subjects\": [\n                \"Mathematik\",\n                \"Englisch\"\n            ],\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-24a93ed5-4bfe-4969-adae-b6cceaf0d1a0\",\n            \"date\": 1590834509\n        }\n    ],\n    \"projectMatches\": [\n        {\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"uuid\": \"af7392d74-8d7f-9083-0973-fda9b8e0f9f\",\n            \"grade\": 6,\n            \"projectFields\": [\n                \"Arbeitswelt\",\n                \"Chemie\"\n            ]\n            \"jitsilink\": \"https://meet.jit.si/CoronaSchool-ProjectCoaching-adl792d76-8d7f-9083-0973-a8d9b8e0d2j\",\n            \"date\": 1590834509,\n            \"projectMemberCount\": 2,\n            \"jufoParticipation\": \"yes\",\n            \"dissolved\": false\n        }\n    ],\n    \"expertData\": {\n        \"id\": 2,\n        \"contactEmail\": \"contact@jufo-tufo.de\",\n        \"description\": null,\n        \"expertiseTags\": [\n            \"LTE\",\n            \"Glasfaser\"\n        ],\n        \"active\": true,\n        \"allowed\": true\n    },\n}",
           "type": "json"
         }
       ]
