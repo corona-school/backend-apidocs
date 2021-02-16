@@ -65,6 +65,13 @@ define({ "api": [
             "optional": false,
             "field": "categories",
             "description": "<p>String of category texts for pupil's student description, separated by newlines</p>"
+          },
+          {
+            "group": "Query Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "automatic",
+            "description": "<p>if set, the pupil will automatically receive a signature request</p>"
           }
         ],
         "URL Query": [
@@ -417,6 +424,85 @@ define({ "api": [
         ]
       },
       "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
+    "type": "POST",
+    "url": "/certificate/:certificateId/sign",
+    "title": "",
+    "version": "1.1.0",
+    "description": "<p>Sign a signature in the automatic signature approval process</p>",
+    "parameter": {
+      "fields": {
+        "JSON Body": [
+          {
+            "group": "JSON Body",
+            "type": "string",
+            "optional": false,
+            "field": "signaturePupil",
+            "description": "<p>The signature of the pupil encoded as base64 JPG. Either the pupil or the parent signature must be set.</p>"
+          },
+          {
+            "group": "JSON Body",
+            "type": "string",
+            "optional": false,
+            "field": "signatureParent",
+            "description": "<p>The signature of the parent encoded as base64 JPG.</p>"
+          }
+        ]
+      }
+    },
+    "name": "signCertificate",
+    "group": "Certificate",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X POST https://api.corona-school.de/api/certificate/000000001-0000-0000-0701-1b4c4c526384/sign",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/certificateController/index.ts",
+    "groupTitle": "Certificate",
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
         {
           "title": "Unauthorized",
           "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
