@@ -1,87 +1,70 @@
 [
   {
-    "type": "GET",
-    "url": "/certificate/create/:student/:match",
+    "type": "POST",
+    "url": "/certificate/create",
     "title": "getCertificate",
     "version": "1.1.0",
-    "description": "<p>Fetch a certificate</p> <p>This endpoint allows fetching a certificate (as PDF) with the second page customized for a pupil. It is only available for students.</p>",
+    "description": "<p>Create a certificate</p> <p>It is only available for students.</p>",
     "parameter": {
       "fields": {
-        "URL Parameter": [
+        "JSON Body": [
           {
-            "group": "URL Parameter",
+            "group": "JSON Body",
             "type": "string",
             "optional": false,
-            "field": "student",
-            "description": "<p>ID of the student</p>"
-          },
-          {
-            "group": "URL Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "match",
-            "description": "<p>UUID of the match</p>"
+            "field": "pupil",
+            "description": "<p>UUID of the pupil</p>"
           }
         ],
-        "Query Parameter": [
+        "JSON body": [
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "number",
             "optional": false,
             "field": "endDate",
             "description": "<p>Unix Timestamp for the end date</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "string",
             "optional": false,
             "field": "subjects",
             "description": "<p>Must be a comma seperated string of the subjects. Only subjects that are matched are available</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "number",
             "optional": false,
             "field": "hoursPerWeek",
             "description": "<p>Hours per week helped</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "number",
             "optional": false,
             "field": "hoursTotal",
             "description": "<p>Total hours helped</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "string",
             "optional": false,
             "field": "medium",
             "description": "<p>Support medium</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "string",
             "optional": false,
             "field": "categories",
             "description": "<p>String of category texts for pupil's student description, separated by newlines</p>"
           },
           {
-            "group": "Query Parameter",
+            "group": "JSON body",
             "type": "string",
             "optional": false,
             "field": "automatic",
             "description": "<p>if set, the pupil will automatically receive a signature request</p>"
-          }
-        ],
-        "URL Query": [
-          {
-            "group": "URL Query",
-            "type": "string",
-            "optional": false,
-            "field": "lang",
-            "defaultValue": "de",
-            "description": "<p>The language</p>"
           }
         ]
       }
