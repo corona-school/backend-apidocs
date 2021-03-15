@@ -6152,6 +6152,22 @@
             "optional": true,
             "field": "registrationSource",
             "description": "<p>(optional field) Can be used to indicate some registration source, allowed values are &quot;NORMAL&quot;, &quot;COOPERATION&quot;, &quot;DREHTUER&quot;, &quot;OTHER&quot;.</p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "string[]",
+            "optional": true,
+            "field": "languages",
+            "description": "<p>(optional field) Indicates fluently spoken languges.</p>"
+          }
+        ],
+        "Tutee Obkect": [
+          {
+            "group": "Tutee Obkect",
+            "type": "string",
+            "optional": true,
+            "field": "learningGermanSince",
+            "description": "<p>Indicates since when tutee learns German. Allowed values are &quot;&gt;4&quot;, &quot;2-4&quot;, &quot;1-2&quot;, &quot;&lt;1&quot;.</p>"
           }
         ],
         "Subject Object": [
@@ -6418,6 +6434,13 @@
             "optional": true,
             "field": "registrationSource",
             "description": "<p>(optional field) Can be used to indicate some registration source, allowed values are &quot;NORMAL&quot;, &quot;COOPERATION&quot;, &quot;DREHTUER&quot;, &quot;OTHER&quot;.</p>"
+          },
+          {
+            "group": "Tutor Object",
+            "type": "string[]",
+            "optional": true,
+            "field": "languages",
+            "description": "<p>(optional field) Indicates in which languages the tutor can offer support.</p>"
           }
         ],
         "Subject Object": [
@@ -6614,6 +6637,24 @@
             "optional": false,
             "field": "redirectTo",
             "description": "<p>the page the user sees after registration</p>"
+          }
+        ],
+        "Tutee Object": [
+          {
+            "group": "Tutee Object",
+            "type": "string[]",
+            "optional": true,
+            "field": "languages",
+            "description": "<p>(optional field) Indicates fluently spoken languges.</p>"
+          }
+        ],
+        "Tutee Obkect": [
+          {
+            "group": "Tutee Obkect",
+            "type": "string",
+            "optional": true,
+            "field": "learningGermanSince",
+            "description": "<p>Indicates since when tutee learns German. Allowed values are &quot;&gt;4&quot;, &quot;2-4&quot;, &quot;1-2&quot;, &quot;&lt;1&quot;.</p>"
           }
         ],
         "Subject Object": [
