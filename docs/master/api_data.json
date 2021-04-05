@@ -7829,6 +7829,13 @@
             "group": "User Object",
             "type": "boolean",
             "optional": false,
+            "field": "isUniversityStudent",
+            "description": "<p><i>Only available for project coaches:</i> The coach is enrolled at a university</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "boolean",
+            "optional": false,
             "field": "active",
             "description": "<p>An inactive user is not considered for new matches.</p>"
           },
@@ -8142,6 +8149,13 @@
             "optional": false,
             "field": "isInstructor",
             "description": "<p><i>Only available for students:</i> User registered as Instructor for courses</p>"
+          },
+          {
+            "group": "User Object",
+            "type": "boolean",
+            "optional": false,
+            "field": "isUniversityStudent",
+            "description": "<p><i>Only available for project coaches:</i> The coach is enrolled at a university</p>"
           },
           {
             "group": "User Object",
@@ -8619,27 +8633,27 @@
     },
     "success": {
       "fields": {
-        "Subject Object": [
+        "Tutor Object": [
           {
-            "group": "Subject Object",
-            "type": "string",
+            "group": "Tutor Object",
+            "type": "Subject[]",
             "optional": false,
-            "field": "name",
-            "description": "<p>Name of the subject</p>"
+            "field": "subjects",
+            "description": "<p>List of subjects</p>"
           },
           {
-            "group": "Subject Object",
-            "type": "number",
+            "group": "Tutor Object",
+            "type": "bool",
             "optional": false,
-            "field": "minGrade",
-            "description": "<p><i>Only available for students:</i> Minimum grade they want to teach</p>"
+            "field": "supportsInDaz",
+            "description": "<p>Indication whether the student wants to support in the DaZ programme</p>"
           },
           {
-            "group": "Subject Object",
-            "type": "number",
+            "group": "Tutor Object",
+            "type": "string[]",
             "optional": false,
-            "field": "maxGrade",
-            "description": "<p><i>Only available for students:</i> Maximum grade they want to teach</p>"
+            "field": "languages",
+            "description": "<p><i>Only if student supports in DaZ (optional):</i> Languages in which the student can offer support</p>"
           }
         ]
       }
