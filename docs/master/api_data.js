@@ -1,6 +1,17 @@
 define({ "api": [
   {
     "type": "POST",
+    "url": "/interest-confirmation/status",
+    "title": "ChangePupilInterestConfirmationRequestStatus",
+    "version": "1.1.0",
+    "description": "<p>Changes the status of a pupil interest confirmation as specified by the given token</p>",
+    "filename": "web/controllers/interestConfirmationController/index.ts",
+    "group": "/home/runner/work/backend/backend/web/controllers/interestConfirmationController/index.ts",
+    "groupTitle": "/home/runner/work/backend/backend/web/controllers/interestConfirmationController/index.ts",
+    "name": "PostInterestConfirmationStatus"
+  },
+  {
+    "type": "POST",
     "url": "/certificate/create",
     "title": "getCertificate",
     "version": "1.1.0",
