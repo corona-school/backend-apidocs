@@ -7628,7 +7628,7 @@
     "url": "/token",
     "title": "requestNewToken",
     "version": "1.0.1",
-    "description": "<p>Request a new token for the user account specified by email.</p> <p>This endpoint allows requesting a new token send via email to the user. A user can only request a new token, if he doesn't have an unused token from the last 24h.</p>",
+    "description": "<p>Request a new token for the user account specified by email.</p> <p>This endpoint allows requesting a new token send via email to the user. A user can only request a new token, if he doesn't have an unused token from the last 24h.</p> <p>A 409 'Conflict' HTTP status code indicates that the user isn't verified yet and that a new verification email has been sent.</p>",
     "name": "requestNewToken",
     "group": "Token",
     "parameter": {
@@ -7684,6 +7684,12 @@
           {
             "group": "HTTP Status Codes",
             "optional": false,
+            "field": "409",
+            "description": "<p>Resource conflicts with existing resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
             "field": "404",
             "description": "<p>The requested resource was not found</p>"
           },
@@ -7709,6 +7715,11 @@
         {
           "title": "Unauthorized",
           "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Conflict",
+          "content": "HTTP/1.1 409 Conflict\n(empty body)",
           "type": "empty"
         },
         {
