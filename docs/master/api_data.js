@@ -432,6 +432,54 @@ define({ "api": [
     }
   },
   {
+    "type": "GET",
+    "url": "/certificate/remissionRequest",
+    "title": "getRemissionRequest",
+    "version": "1.1.0",
+    "description": "<p>View a remission request</p> <p>Returns the remission request as PDF</p>",
+    "name": "getRemissionRequest",
+    "group": "Certificate",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET -H \"Token: <AUTHTOKEN>\" https://api.corona-school.de/api/remissionRequest",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/certificateController/index.ts",
+    "groupTitle": "Certificate",
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "POST",
     "url": "/certificate/:certificateId/sign",
     "title": "",
