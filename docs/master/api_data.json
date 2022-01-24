@@ -6308,15 +6308,20 @@
             "optional": true,
             "field": "languages",
             "description": "<p>(optional field) Indicates fluently spoken languges.</p>"
-          }
-        ],
-        "Tutee Obkect": [
+          },
           {
-            "group": "Tutee Obkect",
+            "group": "Tutee Object",
             "type": "string",
             "optional": true,
             "field": "learningGermanSince",
             "description": "<p>Indicates since when tutee learns German. Allowed values are &quot;&gt;4&quot;, &quot;2-4&quot;, &quot;1-2&quot;, &quot;&lt;1&quot;.</p>"
+          },
+          {
+            "group": "Tutee Object",
+            "type": "string",
+            "optional": true,
+            "field": "cToken",
+            "description": "<p>Token for CoDu pupils that gets stored in the DB.</p>"
           }
         ],
         "Subject Object": [
