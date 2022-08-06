@@ -11,6 +11,107 @@ define({ "api": [
     "name": "PostInterestConfirmationStatus"
   },
   {
+    "type": "GET",
+    "url": "/attachments/:attachmentId/:filename",
+    "title": "getS3AttachmentLink",
+    "version": "1.1.0",
+    "description": "<p>Generate an AWS S3 URL for the given attachment path.</p> <p>Attachments are stored in the S3 Attachment bucket with the following structure:</p> <pre class=\"prettyprint\"> root  ├(attachmentGroupId)  │ ├(attachmentId)  │ │ └filename  │ └(attachmentId)  │   └filename  └(attachmentGroupId)     └(attachmentId)      └filename </code></pre>",
+    "parameter": {
+      "fields": {
+        "URL Parameter": [
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "attachmentId",
+            "description": "<p>UUID of the attachment (unique per message)</p>"
+          },
+          {
+            "group": "URL Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "filename",
+            "description": "<p>Name of the file</p>"
+          }
+        ]
+      }
+    },
+    "name": "getAttachmentURL",
+    "group": "Attachments",
+    "examples": [
+      {
+        "title": "Curl",
+        "content": "curl -k -i -X GET https://api.corona-school.de/api/attachments/000000001-0000-0000-0701-1b4c4c526384/helloworld.png",
+        "type": "curl"
+      }
+    ],
+    "filename": "web/controllers/attachmentController/index.ts",
+    "groupTitle": "Attachments",
+    "error": {
+      "fields": {
+        "HTTP Status Codes": [
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "204",
+            "description": "<p>The request was successful, but generated no response</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "400",
+            "description": "<p>The request was malformed and thus rejected</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "403",
+            "description": "<p>The user is not authenticated</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The user is authenticated, but may not access this resource</p>"
+          },
+          {
+            "group": "HTTP Status Codes",
+            "optional": false,
+            "field": "500",
+            "description": "<p>This should not happen. Report this issue to the maintainer or ask your favorite superhero for help.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "No Content",
+          "content": "HTTP/1.1 204 No Content\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 403 Unauthorized\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Forbidden",
+          "content": "HTTP/1.1 401 Forbidden\n(empty body)",
+          "type": "empty"
+        },
+        {
+          "title": "Internal Server Error",
+          "content": "HTTP/1.1 500 Internal Server Error\n(empty body)",
+          "type": "empty"
+        }
+      ]
+    }
+  },
+  {
     "type": "POST",
     "url": "/certificate/create",
     "title": "getCertificate",
